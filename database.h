@@ -47,4 +47,12 @@ void add_user(
     const char *password_hash,
     const char *salt);
 
+void print_user(User *user);
+
+void get_user(Connection *conn, int id);
+
+void delete_user(Connection *conn, int id);
+
+void list_users(Connection *conn);
+
 #endif

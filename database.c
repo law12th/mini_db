@@ -137,3 +137,44 @@ void add_user(Connection *conn,
     if (!res)
         die("salt copy failed");
 }
+
+void print_user(User *user)
+{
+    printf("%d %s %s %s\n", user->id, user->first_name, user->last_name, user->email);
+}
+
+void get_user(Connection *conn, int id)
+{
+    User *user = &conn->db->rows[id];
+
+    if (user->set)
+    {
+        print_user(user);
+    }
+    else
+    {
+        die("id is not set");
+    }
+}
+
+void delete_user(Connection *conn, int id)
+{
+    User user = {.id = id, .set = 0};
+
+    conn->db->rows[id] = user;
+}
+
+void list_users(Connection *conn)
+{
+    Database *db = conn->db;
+
+    for (int i = 0; i < MAX_ROWS; i++)
+    {
+        User *curr_user = &db->rows[i];
+
+        if (curr_user->set)
+        {
+            print_user(curr_user);
+        }
+    }
+}
